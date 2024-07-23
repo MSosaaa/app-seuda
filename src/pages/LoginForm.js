@@ -2,22 +2,19 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginFetch } from '../api/loginFetch';
 import { AuthContext } from '../context/AuthContext';
+import { Home } from '../pages/Home'
+import { ResContraseña} from '../pages/ResContraseña'
 
 const LoginForm = () => {
 	const navigate = useNavigate();
-	const { setUser } = useContext(AuthContext);
+	const { user, setUser , login } = useContext(AuthContext);
 
-	/* 
-	datos del formulario
-   */
 	const [formData, setFormData] = useState({
-		email: 'tomas@test.com',
-		password: '123456',
+		email: '',
+		password: '',
 	});
 
-	/* 
-	validacion de formulario y navegacion entre las rutas
-   */
+	
 	const [error, setError] = useState(null);
 
 	const handleInputChange = (event) => {
@@ -28,23 +25,16 @@ const LoginForm = () => {
 		});
 	};
 
-	/* 
-	obtener los datos del formulario de login
-   */
+	
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const { access } = await loginFetch(formData);
-			console.log(access);
-			if (access) {
-				setUser({
-					firstname: 'Tomas',
-					lastname: 'Aranda',
-					email: 'tomas@test.static.com',
-				});
-			}
+			const { token } = await loginFetch(formData);
+			localStorage.setItem('token', token)
+			login(token)
+
 			setError('');
-			navigate('/home');
+			navigate('/Home');
 		} catch (error) {
 			console.log(error);
 			setError('Error de servidor');
@@ -76,6 +66,9 @@ const LoginForm = () => {
 			<button type="submit">Login</button>
 			<p>
 				¿No tienes una cuenta? <Link to="/">Regístrate</Link>
+			</p>
+			<p>
+				<Link to="/ResContraseña">¿Olvidaste tu contraseña?</Link>
 			</p>
 		</form>
 	);

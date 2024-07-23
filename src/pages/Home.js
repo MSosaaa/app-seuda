@@ -1,18 +1,22 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import Header from '../components/Header';
+import '../css/header.css'
+import Nav from '../components/Nav'
+import Slider from '../components/Slider'
+import Footer from '../components/Footer'
+
 
 const Home = () => {
-	const { user } = useContext(AuthContext);
+	const { user , logout  } = useContext(AuthContext);
 
 	return user ? (
 		<>
-			<div className="mx-2 d-flex  flex-column align-items-center">
-				<h3>
-					Home - Bienvenido{' '}
-					<span className="text-primary">{user.firstname + ' ' + user.lastname}</span>
-				</h3>
-				<button className="btn btn-danger w-50 mt-3">Cerrar Sesion</button>
-			</div>
+			<Header />
+			<Nav />
+			<Slider />
+			<Footer />
+		
 		</>
 	) : null;
 };

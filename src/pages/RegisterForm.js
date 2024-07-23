@@ -2,20 +2,16 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { registerFetch } from '../api/registerFetch';
 
+
 const RegisterForm = () => {
-	/* 
-	datos del formulario
-   */
+	
 	const [formData, setFormData] = useState({
-		firstname: 'Tomas',
-		lastname: 'Aranda',
-		email: 'tomas@test.com',
-		password: '123456',
+		firstname: 'Nombre',
+		lastname: 'Apellido',
+		email: 'email@test.com',
+		password: 'Contraseña',
 	});
 
-	/* 
-	validacion de formulario
-   */
 	const [error, setError] = useState(null);
 	const [success, setSuccess] = useState(false);
 
@@ -27,9 +23,7 @@ const RegisterForm = () => {
 		});
 	};
 
-	/* 
-	obtener los datos del formulario de registro
-   */
+	
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -47,7 +41,7 @@ const RegisterForm = () => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<h2>Register</h2>
+			<h2>Registrate</h2>
 			<div>
 				<input
 					type="text"
@@ -85,7 +79,7 @@ const RegisterForm = () => {
 				/>
 			</div>
 			{error && <p className="alert alert-danger">{error}</p>}
-			<button type="submit">Register</button>
+			<button type="submit">Registrate</button>
 			{success && <p className="alert alert-success">Registro Completado</p>}
 			<p>
 				¿Ya tienes una cuenta? <Link to="/login">Iniciar sesión</Link>
